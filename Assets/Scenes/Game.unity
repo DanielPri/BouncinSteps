@@ -175,7 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a176bda7e7cb6464f85e0f196e50a6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.3
 --- !u!1 &370019336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eb03ab1df500d459814ed5f8abb860, type: 3}
@@ -215,7 +214,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 10
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &370019341
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -831,6 +830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1529461205}
+  - component: {fileID: 1529461206}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -852,6 +852,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1529461206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529461204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 171cd1e180df7a64f814c32f48361a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Structure: {fileID: 259873174}
+  rotationSpeed: 0.3
+  TapSpeed: 0.2
 --- !u!1001 &1815335156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1071,6 +1086,10 @@ PrefabInstance:
     - target: {fileID: 3508611463797544784, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
       propertyPath: m_Name
       value: Ring
+      objectReference: {fileID: 0}
+    - target: {fileID: 3902693696909819645, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9048125906114677045, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
       propertyPath: m_LocalPosition.x

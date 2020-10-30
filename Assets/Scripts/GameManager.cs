@@ -7,11 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public GameObject Structure;
     public float rotationSpeed = 1;
+    public float TapSpeed = 0.2f;
 
     private float touchStart = 0;
     private float displacement;
     private float prevRotation;
 
+    private float timeTapBegan;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 DragStart(touch);
+                timeTapBegan =  Time.time;
             }
             if (touch.phase == TouchPhase.Moved)
             {
@@ -41,6 +44,19 @@ public class GameManager : MonoBehaviour
             if (touch.phase == TouchPhase.Ended)
             {
                 DragRelease(touch);
+
+                // Check for a quick tap
+                if(Time.time - timeTapBegan < TapSpeed)
+                {
+                    if(Time.timeScale != 0)
+                    {
+                        Time.timeScale = 0;
+                    }
+                    else
+                    {
+                        Time.timeScale = 1;
+                    }
+                }
             }
         }
     }
