@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    public GameObject cam;
     public float bounceForce = 1;
 
     private Rigidbody rb;
@@ -26,6 +27,7 @@ public class Ball : MonoBehaviour
         {
             rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,5 +36,7 @@ public class Ball : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+        
+
     }
 }
