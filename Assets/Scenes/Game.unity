@@ -173,6 +173,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eb03ab1df500d459814ed5f8abb860, type: 3}
   m_PrefabInstance: {fileID: 1815335156}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &370019337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370019336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d23a0123a37794cbed8b7abb9fd308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceForce: 10
 --- !u!54 &370019340
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -484,6 +497,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56eb03ab1df500d459814ed5f8abb860, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56eb03ab1df500d459814ed5f8abb860, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56eb03ab1df500d459814ed5f8abb860, type: 3}
 --- !u!1001 &2443399183233809087
@@ -556,6 +577,18 @@ PrefabInstance:
     - target: {fileID: 2765786185432876434, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254373329524117137, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
+      propertyPath: m_TagString
+      value: Hole
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254373331018227496, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254373331018227496, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3508611463797544784, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
       propertyPath: m_Name
