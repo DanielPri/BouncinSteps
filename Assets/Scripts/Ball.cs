@@ -27,4 +27,12 @@ public class Ball : MonoBehaviour
             rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Hole")
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }
