@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject Structure;
+    public GameObject Canvas;
     public float rotationSpeed = 1;
     public float TapSpeed = 0.2f;
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Canvas.SetActive(false);
         prevRotation = 0f;
     }
 
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
                     if(Time.timeScale != 0)
                     {
                         Time.timeScale = 0;
+                        Canvas.SetActive(true);
                     }
                     else
                     {
@@ -79,5 +82,6 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Canvas.SetActive(false);
     }
 }
