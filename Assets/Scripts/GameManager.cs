@@ -50,20 +50,25 @@ public class GameManager : MonoBehaviour
                 // Check for a quick tap
                 if(Time.time - timeTapBegan < TapSpeed)
                 {
-                    if(Time.timeScale != 0)
-                    {
-                        Time.timeScale = 0;
-                        Canvas.SetActive(true);
-                    }
-                    else
-                    {
-                        Time.timeScale = 1;
-                    }
+                    SingleTap();
                 }
             }
         }
     }
 
+    void SingleTap()
+    {
+        if (Time.timeScale != 0)
+        {
+            Time.timeScale = 0;
+            Canvas.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            Canvas.SetActive(false);
+        }
+    }
     void DragStart(Touch touch)
     {
         touchStart = touch.position.x;
