@@ -508,7 +508,8 @@ MonoBehaviour:
   Structure: {fileID: 259873174}
   RingPrefabs:
   - {fileID: 3508611463797544784, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
-  setupQuantity: 5
+  Camera: {fileID: 405628468}
+  setupQuantity: 7
   ringOffset: 5
 --- !u!1 &1679285422
 GameObject:
@@ -755,6 +756,10 @@ PrefabInstance:
     - target: {fileID: 2852720980477816879, guid: 666ef5c3574f1554ea2e5f3188ca4726, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2852720980477816879, guid: 666ef5c3574f1554ea2e5f3188ca4726, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2852720982116723776, guid: 666ef5c3574f1554ea2e5f3188ca4726, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
