@@ -20,8 +20,8 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientSkyColor: {r: 0.7830189, g: 0.34520596, b: 0.2944151, a: 1}
+  m_AmbientEquatorColor: {r: 0.78431374, g: 0.6558432, b: 0.23372552, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
@@ -509,9 +509,11 @@ MonoBehaviour:
   Pillar: {fileID: 6268154183734502920, guid: 23320abb1e5b62842ac124bf739412a8, type: 3}
   RingPrefabs:
   - {fileID: 3508611463797544784, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
+  FinalRing: {fileID: 3508611463797544784, guid: b1ca3578ac1856040a49267de3e27694, type: 3}
   Camera: {fileID: 405628468}
   setupQuantity: 7
   ringOffset: 5
+  LevelLength: 10
 --- !u!1 &1679285422
 GameObject:
   m_ObjectHideFlags: 0

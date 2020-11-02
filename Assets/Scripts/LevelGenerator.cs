@@ -3,16 +3,23 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [Header("GameObject Dependencies")]
     public GameObject Structure;
     public GameObject Pillar;
     public List<GameObject> RingPrefabs;
+    public GameObject FinalRing;
     public Transform Camera;
+
+    [Header("Level Settings")]
     public int setupQuantity = 8;
     public float ringOffset = 5;
+    public int LevelLength = 50;
 
     private Queue<GameObject> ActiveRings;
     private Queue<GameObject> ActivePillars;
-    
+
+    private int generatedRingsQty = 0;
+    private bool isEndGenerated = false;
     // Start is called before the first frame update
 
     private Vector3 prevRingPosition = Vector3.zero;
@@ -32,11 +39,22 @@ public class LevelGenerator : MonoBehaviour
 
     private void HandleNextRing()
     {
+        // If head of queue is far enough above the camera, destroy it
         if(ActiveRings.Peek().transform.position.y - Camera.position.y > 1.5)
         {
             //TODO consider using object pooling
             Destroy(ActiveRings.Dequeue());
-            AddRingToStructure();
+            Destroy(ActivePillars.Dequeue());
+            if(generatedRingsQty < LevelLength)
+            {
+                AddRingToStructure(RingPrefabs[Random.Range(0, RingPrefabs.Count)]);
+            }
+            else if(!isEndGenerated)
+            {
+                AddRingToStructure(FinalRing);
+                isEndGenerated = true;
+            }
+            
         }
     }
 
@@ -44,17 +62,18 @@ public class LevelGenerator : MonoBehaviour
     {
         for(int i=0; i < setupQuantity; i++)
         {
-            AddRingToStructure();
+            AddRingToStructure(RingPrefabs[Random.Range(0, RingPrefabs.Count)]);
         }
     }
 
-    private void AddRingToStructure()
+    private void AddRingToStructure(GameObject ringType)
     {
-        GameObject ring = Instantiate(RingPrefabs[Random.Range(0, RingPrefabs.Count)], Structure.transform, false);
+        GameObject ring = Instantiate(ringType, Structure.transform, false);
         GameObject pillar = Instantiate(Pillar, Structure.transform, false);
         ActiveRings.Enqueue(ring);
-        print("Ring added");
         ActivePillars.Enqueue(pillar);
+
+        generatedRingsQty++;
 
         prevRingPosition = ring.transform.position = new Vector3(0, prevRingPosition.y - ringOffset, 0);
         ring.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
