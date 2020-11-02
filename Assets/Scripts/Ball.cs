@@ -1,24 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public GameObject cam;
+    public Action OnVictoryReached;
+
     public float bounceForce = 1;
-
+    
     private Rigidbody rb;
-
+    
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -26,6 +20,11 @@ public class Ball : MonoBehaviour
         if(collision.gameObject.tag == "Floor")
         {
             rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
+        }
+        if(collision.gameObject.tag == "Finish")
+        {
+            print("Victory!");
+            OnVictoryReached?.Invoke();
         }
         
     }

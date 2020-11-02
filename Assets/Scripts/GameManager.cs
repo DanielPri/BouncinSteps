@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject Structure;
-    public GameObject Canvas;
+    public GameObject PauseMenu;
+    public GameObject VictoryMenu;
+    public Ball ball;
     public float rotationSpeed = 1;
     public float TapSpeed = 0.2f;
 
@@ -19,8 +22,15 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Canvas.SetActive(false);
+        PauseMenu.SetActive(false);
+        VictoryMenu.SetActive(false);
         prevRotation = 0f;
+        ball.OnVictoryReached += HandleVictory;
+    }
+
+    private void HandleVictory()
+    {
+        VictoryMenu.SetActive(true);
     }
 
     // Update is called once per frame
@@ -61,12 +71,12 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale != 0)
         {
             Time.timeScale = 0;
-            Canvas.SetActive(true);
+            PauseMenu.SetActive(true);
         }
         else
         {
             Time.timeScale = 1;
-            Canvas.SetActive(false);
+            PauseMenu.SetActive(false);
         }
     }
     void DragStart(Touch touch)
@@ -87,6 +97,6 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Canvas.SetActive(false);
+        PauseMenu.SetActive(false);
     }
 }
