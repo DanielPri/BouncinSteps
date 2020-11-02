@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d23a0123a37794cbed8b7abb9fd308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 405628465}
   bounceForce: 10
 --- !u!4 &370019339 stripped
 Transform:
@@ -458,7 +457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &654675559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,7 +664,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Structure: {fileID: 259873174}
-  Canvas: {fileID: 1232065354}
+  PauseMenu: {fileID: 1232065354}
+  VictoryMenu: {fileID: 654675558}
+  ball: {fileID: 370019337}
   rotationSpeed: 0.3
   TapSpeed: 0.2
 --- !u!114 &1529461207
@@ -684,6 +685,8 @@ MonoBehaviour:
   Pillar: {fileID: 6268154183734502920, guid: 23320abb1e5b62842ac124bf739412a8, type: 3}
   RingPrefabs:
   - {fileID: 3508611463797544784, guid: 22db8b86db95090468c613d2a0d30f54, type: 3}
+  - {fileID: 3508611463797544784, guid: 0ef348ca26c45e14a961940381674584, type: 3}
+  - {fileID: 3508611463797544784, guid: 342c8c45710497f46ad8736cd5fc4b6e, type: 3}
   FinalRing: {fileID: 3508611463797544784, guid: b1ca3578ac1856040a49267de3e27694, type: 3}
   Camera: {fileID: 405628468}
   setupQuantity: 7
@@ -753,7 +756,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782747674
 GameObject:
@@ -962,7 +965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 56eb03ab1df500d459814ed5f8abb860, type: 3}
       propertyPath: m_Name
-      value: Sphere
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 56eb03ab1df500d459814ed5f8abb860, type: 3}
       propertyPath: m_TagString
@@ -1011,7 +1014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2852720980477816875, guid: 666ef5c3574f1554ea2e5f3188ca4726, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2852720980477816875, guid: 666ef5c3574f1554ea2e5f3188ca4726, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
