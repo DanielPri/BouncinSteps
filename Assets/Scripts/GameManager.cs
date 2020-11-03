@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject Structure;
     public GameObject PauseMenu;
     public GameObject EndingMenu;
+    public GameObject HUD;
     public Ball ball;
     public float rotationSpeed = 1;
     public float TapSpeed = 0.2f;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     private float displacement;
     private float prevRotation;
     private TextMeshProUGUI EndingText;
+    private TextMeshProUGUI HUDLevel;
     private LevelGenerator levelGenerator;
     private PlayerData data;
 
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
         PauseMenu.SetActive(false);
         EndingMenu.SetActive(false);
         EndingText = EndingMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        HUDLevel = HUD.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         prevRotation = 0f;
         ball.OnEndingReached += HandleEnding;
         data = SaveSystem.LoadPlayer();
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
         {
             level = data.level;
         }
+        HUDLevel.text = level.ToString();
         levelGenerator.SetupLevel(level);
     }
 

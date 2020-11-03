@@ -22,6 +22,7 @@ public static class SaveSystem
     {
         if (File.Exists(path))
         {
+            Debug.Log("file location: " + path);
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(path, FileMode.Open))
             {
