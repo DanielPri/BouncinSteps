@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject Structure;
     public GameObject PauseMenu;
-    public GameObject VictoryMenu;
+    public GameObject EndingMenu;
     public Ball ball;
     public float rotationSpeed = 1;
     public float TapSpeed = 0.2f;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     private float touchStart = 0;
     private float displacement;
     private float prevRotation;
+    private TextMeshProUGUI EndingText;
 
     private float timeTapBegan;
 
@@ -23,14 +25,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         PauseMenu.SetActive(false);
-        VictoryMenu.SetActive(false);
+        EndingMenu.SetActive(false);
+        EndingText = EndingMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         prevRotation = 0f;
-        ball.OnVictoryReached += HandleVictory;
+        ball.OnEndingReached += HandleVictory;
     }
 
-    private void HandleVictory()
+    private void HandleVictory(bool isVictory)
     {
-        VictoryMenu.SetActive(true);
+        if (isVictory)
+        {
+            EndingText.text = "Victory!";
+            EndingMenu.SetActive(true);
+        }
+        else
+        {
+            EndingText.text = "Game Over!";
+            EndingMenu.SetActive(true);
+        }
+        
     }
 
     // Update is called once per frame

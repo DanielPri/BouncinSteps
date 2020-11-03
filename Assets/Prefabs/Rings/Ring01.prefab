@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9048125906114677045}
   m_Layer: 0
-  m_Name: Ring
+  m_Name: Ring01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: cfebde52239fc1c4b88f1e58a4addc24, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1c6865f8200eb154ba1e1825d093d1ad, type: 2}
+      objectReference: {fileID: 2100000, guid: 749062442d2906743b1d133a38568b01, type: 2}
     - target: {fileID: -7511558181221131132, guid: cfebde52239fc1c4b88f1e58a4addc24, type: 3}
       propertyPath: m_Enabled
       value: 1

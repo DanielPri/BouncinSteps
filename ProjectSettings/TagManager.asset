@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - Hole
+  - Death
   layers:
   - Default
   - TransparentFX

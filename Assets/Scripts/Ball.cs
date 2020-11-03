@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public Action OnVictoryReached;
+    public Action<bool> OnEndingReached;
 
     public float bounceForce = 1;
     
     private Rigidbody rb;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +20,15 @@ public class Ball : MonoBehaviour
         {
             rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
         }
-        if(collision.gameObject.tag == "Finish")
+        else if (collision.gameObject.tag == "Death")
+        {
+            print("Game Over!");
+            OnEndingReached?.Invoke(false);
+        }
+        else if(collision.gameObject.tag == "Finish")
         {
             print("Victory!");
-            OnVictoryReached?.Invoke();
+            OnEndingReached?.Invoke(true);
         }
         
     }
