@@ -13,30 +13,42 @@ public class GameManager : MonoBehaviour
     public Ball ball;
     public float rotationSpeed = 1;
     public float TapSpeed = 0.2f;
+    public int level = 0;
 
     private float touchStart = 0;
     private float displacement;
     private float prevRotation;
     private TextMeshProUGUI EndingText;
+    private LevelGenerator levelGenerator;
+    private PlayerData data;
 
     private float timeTapBegan;
 
     // Start is called before the first frame update
     void Start()
     {
+        levelGenerator = GetComponent<LevelGenerator>();
         PauseMenu.SetActive(false);
         EndingMenu.SetActive(false);
         EndingText = EndingMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         prevRotation = 0f;
-        ball.OnEndingReached += HandleVictory;
+        ball.OnEndingReached += HandleEnding;
+        data = SaveSystem.LoadPlayer();
+        if(data != null)
+        {
+            level = data.level;
+        }
+        levelGenerator.SetupLevel(level);
     }
 
-    private void HandleVictory(bool isVictory)
+    private void HandleEnding(bool isVictory)
     {
         if (isVictory)
         {
             EndingText.text = "Victory!";
             EndingMenu.SetActive(true);
+            level++;
+            SaveSystem.SavePlayer(level);
         }
         else
         {

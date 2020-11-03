@@ -11,7 +11,7 @@ public class LevelGenerator : MonoBehaviour
     public Transform Camera;
 
     [Header("Level Settings")]
-    public int setupQuantity = 8;
+    public int initalQtyOfRings =7;
     public float ringOffset = 5;
     public int LevelLength = 50;
 
@@ -26,9 +26,6 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        ActiveRings = new Queue<GameObject>();
-        ActivePillars = new Queue<GameObject>();
-        SetupLevel();
     }
 
     // Update is called once per frame
@@ -40,7 +37,7 @@ public class LevelGenerator : MonoBehaviour
     private void HandleNextRing()
     {
         // If head of queue is far enough above the camera, destroy it
-        if(ActiveRings.Peek().transform.position.y - Camera.position.y > 1.5)
+        if(ActiveRings.Count > 0 && ActiveRings.Peek().transform.position.y - Camera.position.y > 1.5)
         {
             //TODO consider using object pooling
             Destroy(ActiveRings.Dequeue());
@@ -58,9 +55,12 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void SetupLevel()
+    public void SetupLevel(int level)
     {
-        for(int i=0; i < setupQuantity; i++)
+        ActiveRings = new Queue<GameObject>();
+        ActivePillars = new Queue<GameObject>();
+        LevelLength += level;
+        for(int i=0; i < initalQtyOfRings; i++)
         {
             AddRingToStructure(RingPrefabs[Random.Range(0, RingPrefabs.Count)]);
         }
