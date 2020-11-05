@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour
 
     private float timeTapBegan;
 
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 
     void Start()
     {
@@ -59,6 +63,15 @@ public class GameManager : MonoBehaviour
 
         // generate the first few rings
         levelGenerator.SetupLevel(level);
+
+        //If not first level
+        Time.timeScale = 1;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        HandleTouch();
     }
 
     /// <summary>
@@ -94,12 +107,6 @@ public class GameManager : MonoBehaviour
     {
         // load itself 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        HandleTouch();
     }
 
 
@@ -151,8 +158,11 @@ public class GameManager : MonoBehaviour
     }
     void Dragging(Touch touch)
     {
-        displacement = (touch.position.x - touchStart) * rotationSpeed;
-        Structure.transform.eulerAngles = new Vector3(0, prevRotation - displacement, 0);
+        if(Time.timeScale > 0)
+        {
+            displacement = (touch.position.x - touchStart) * rotationSpeed;
+            Structure.transform.eulerAngles = new Vector3(0, prevRotation - displacement, 0);
+        }
     }
     void DragRelease(Touch touch)
     {
