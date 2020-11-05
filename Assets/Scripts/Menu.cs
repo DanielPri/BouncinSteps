@@ -5,16 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject MainMenuUI;
+    public GameObject SettingsUI;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        MainMenuUI.SetActive(true);
+        SettingsUI.SetActive(false);
     }
 
     public void StartGame()
@@ -26,5 +23,17 @@ public class Menu : MonoBehaviour
     public void ResetPlayer()
     {
         SaveSystem.ResetPlayer();
+    }
+
+    public void SwitchToSettings()
+    {
+        SettingsUI.SetActive(true);
+        MainMenuUI.SetActive(false);
+    }
+
+    public void SwitchToMenu()
+    {
+        SettingsUI.SetActive(false);
+        MainMenuUI.SetActive(true);
     }
 }
