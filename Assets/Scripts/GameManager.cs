@@ -7,31 +7,39 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Scene Objects")]
     public GameObject Structure;
-    public GameObject PauseMenu;
-    public GameObject EndingMenu;
     public GameObject HUD;
     public Ball ball;
+
+    [Header("Game Parameters")]
     public float rotationSpeed = 1;
     public float TapSpeed = 0.2f;
     public int level = 0;
 
+    [Header("UI elements")]
+    public GameObject EndingMenu;
+    public TextMeshProUGUI EndingText;
+    public TextMeshProUGUI EndingNextLevelText;
+    public GameObject PauseMenu;
+    public TextMeshProUGUI HUDLevel;
+
     private float touchStart = 0;
     private float displacement;
     private float prevRotation;
-    private TextMeshProUGUI EndingText;
-    private TextMeshProUGUI HUDLevel;
+    
     private LevelGenerator levelGenerator;
     private PlayerData data;
+    private bool canPause = true;
+    private bool isPaused = false;
 
     private float timeTapBegan;
+
 
     void Start()
     {
         // initializing class members
         levelGenerator = GetComponent<LevelGenerator>();
-        EndingText = EndingMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        HUDLevel = HUD.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         prevRotation = 0f;
 
         // set up UI elements
@@ -59,19 +67,24 @@ public class GameManager : MonoBehaviour
     /// <param name="isVictory"></param>
     private void HandleEnding(bool isVictory)
     {
+        canPause = false;
+        Time.timeScale = 0;
+
         if (isVictory)
         {
             EndingText.text = "Victory!";
-            EndingMenu.SetActive(true);
+            EndingNextLevelText.text = "Next Level";
             level++;
             SaveSystem.SavePlayer(level);
         }
         else
         {
             EndingText.text = "Game Over!";
-            EndingMenu.SetActive(true);
+            EndingNextLevelText.text = "Try Again?";
         }
-        
+
+        EndingMenu.SetActive(true);
+
     }
 
     /// <summary>
@@ -119,14 +132,16 @@ public class GameManager : MonoBehaviour
 
     void SingleTap()
     {
-        if (Time.timeScale != 0)
+        if (canPause && !isPaused)
         {
             Time.timeScale = 0;
+            isPaused = true;
             PauseMenu.SetActive(true);
         }
-        else
+        else if (isPaused)
         {
             Time.timeScale = 1;
+            isPaused = false;
             PauseMenu.SetActive(false);
         }
     }

@@ -6,9 +6,10 @@ using System;
 public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/player.sav";
+
     public static void SavePlayer(int level)
     {
-        
+        Debug.Log("Saving to: " + path);
         BinaryFormatter formatter = new BinaryFormatter();
         using (FileStream stream = new FileStream(path, FileMode.Create))
         {
@@ -22,7 +23,7 @@ public static class SaveSystem
     {
         if (File.Exists(path))
         {
-            Debug.Log("file location: " + path);
+            Debug.Log("Loading from: " + path);
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(path, FileMode.Open))
             {
@@ -36,6 +37,17 @@ public static class SaveSystem
         {
             Debug.Log("Save file not found in: " + path);
             return null;
+        }
+    }
+
+    // probably best to use only for debug purposes
+    public static void ResetPlayer()
+    {
+        if (File.Exists(path))
+        {
+            Debug.Log("Deleting: " + path);
+            File.Delete(path);
+
         }
     }
 }

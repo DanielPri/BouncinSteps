@@ -21,4 +21,10 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
+
+    // Warning!!!! cannot recover!
+    public void ResetPlayer()
+    {
+        SaveSystem.ResetPlayer();
+    }
 }
