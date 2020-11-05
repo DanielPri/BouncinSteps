@@ -34,12 +34,15 @@ public class LevelGenerator : MonoBehaviour
         HandleNextRing();
     }
 
+    /// <summary>
+    /// Remove unseen ring and add next ring until the last ring is reached
+    /// </summary>
     private void HandleNextRing()
     {
         // If head of queue is far enough above the camera, destroy it
         if(ActiveRings.Count > 0 && ActiveRings.Peek().transform.position.y - Camera.position.y > 1.5)
         {
-            //TODO consider using object pooling
+            //TODO consider using object pooling instead of destroying
             Destroy(ActiveRings.Dequeue());
             Destroy(ActivePillars.Dequeue());
             if(generatedRingsQty < LevelLength)
@@ -55,6 +58,9 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// prepares the first few rings (the ones that are visible at first)
+    /// </summary>
     public void SetupLevel(int level)
     {
         ActiveRings = new Queue<GameObject>();
@@ -66,6 +72,10 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Instantiate ring and pillar
+    /// </summary>
+    /// <param name="ringType"></param>
     private void AddRingToStructure(GameObject ringType)
     {
         GameObject ring = Instantiate(ringType, Structure.transform, false);
@@ -73,8 +83,8 @@ public class LevelGenerator : MonoBehaviour
         ActiveRings.Enqueue(ring);
         ActivePillars.Enqueue(pillar);
 
+        // update variables needed for next rings
         generatedRingsQty++;
-
         prevRingPosition = ring.transform.position = new Vector3(0, prevRingPosition.y - ringOffset, 0);
         ring.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
         pillar.transform.position = new Vector3(0, prevRingPosition.y, 0);

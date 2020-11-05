@@ -26,25 +26,37 @@ public class GameManager : MonoBehaviour
 
     private float timeTapBegan;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // initializing class members
         levelGenerator = GetComponent<LevelGenerator>();
-        PauseMenu.SetActive(false);
-        EndingMenu.SetActive(false);
         EndingText = EndingMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         HUDLevel = HUD.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         prevRotation = 0f;
+
+        // set up UI elements
+        PauseMenu.SetActive(false);
+        EndingMenu.SetActive(false);
+        
+        // set up Action Event Handling
         ball.OnEndingReached += HandleEnding;
+
+        // load data from player save
         data = SaveSystem.LoadPlayer();
         if(data != null)
         {
             level = data.level;
         }
         HUDLevel.text = level.ToString();
+
+        // generate the first few rings
         levelGenerator.SetupLevel(level);
     }
 
+    /// <summary>
+    /// Determine if victory or defeat occured based on event from ball collision
+    /// </summary>
+    /// <param name="isVictory"></param>
     private void HandleEnding(bool isVictory)
     {
         if (isVictory)
@@ -62,11 +74,21 @@ public class GameManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    ///  restarts the level
+    /// </summary>
+    public void RestartLevel()
+    {
+        // load itself 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     // Update is called once per frame
     void Update()
     {
         HandleTouch();
     }
+
 
     void HandleTouch()
     {
@@ -123,9 +145,4 @@ public class GameManager : MonoBehaviour
         prevRotation = Structure.transform.rotation.eulerAngles.y;
     }
 
-    public void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        PauseMenu.SetActive(false);
-    }
 }
