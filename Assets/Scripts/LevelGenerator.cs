@@ -66,7 +66,13 @@ public class LevelGenerator : MonoBehaviour
         ActiveRings = new Queue<GameObject>();
         ActivePillars = new Queue<GameObject>();
         LevelLength += level;
-        for(int i=0; i < initalQtyOfRings; i++)
+
+        // First ring is guaranteed safe, the hole wont be below player
+        GameObject firstRing = AddRingToStructure(RingPrefabs[0]);
+        firstRing.transform.rotation = Quaternion.Euler(0, Random.Range(-115f,120f), 0);
+
+        // then generate the next initial rings with random rotations
+        for (int i=0; i < initalQtyOfRings-1; i++)
         {
             AddRingToStructure(RingPrefabs[Random.Range(0, RingPrefabs.Count)]);
         }
@@ -76,7 +82,7 @@ public class LevelGenerator : MonoBehaviour
     /// Instantiate ring and pillar
     /// </summary>
     /// <param name="ringType"></param>
-    private void AddRingToStructure(GameObject ringType)
+    private GameObject AddRingToStructure(GameObject ringType)
     {
         GameObject ring = Instantiate(ringType, Structure.transform, false);
         GameObject pillar = Instantiate(Pillar, Structure.transform, false);
@@ -88,6 +94,7 @@ public class LevelGenerator : MonoBehaviour
         prevRingPosition = ring.transform.position = new Vector3(0, prevRingPosition.y - ringOffset, 0);
         ring.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
         pillar.transform.position = new Vector3(0, prevRingPosition.y, 0);
+        return ring;
     }
 }
 
