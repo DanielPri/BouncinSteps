@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour
     public float bounceForce = 1;
     
     private Rigidbody rb;
+
+    private int holesInArow = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +18,15 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Floor")
+        if(holesInArow < 3)
         {
-            rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
+            if(collision.gameObject.tag == "Floor")
+            {
+                rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
+                holesInArow = 0;
+            }
         }
-        else if (collision.gameObject.tag == "Death")
+        if (collision.gameObject.tag == "Death")
         {
             print("Game Over!");
             OnEndingReached?.Invoke(false);
@@ -38,8 +44,8 @@ public class Ball : MonoBehaviour
         if(other.tag == "Hole")
         {
             Destroy(other.gameObject);
+            holesInArow++;
         }
         
-
     }
 }

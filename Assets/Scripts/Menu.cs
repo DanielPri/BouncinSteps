@@ -12,6 +12,9 @@ public class Menu : MonoBehaviour
     {
         MainMenuUI.SetActive(true);
         SettingsUI.SetActive(false);
+
+        // if redirected from pause menu
+        Time.timeScale = 1;
     }
 
     public void StartGame()
