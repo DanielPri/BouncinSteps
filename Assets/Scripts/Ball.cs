@@ -43,8 +43,13 @@ public class Ball : MonoBehaviour
     {
         if(other.tag == "Hole")
         {
-            Destroy(other.gameObject);
+            other.transform.parent.gameObject.SetActive(false);
             holesInArow++;
+        }
+        else if(holesInArow >= 3 && other.tag == "BreakZone")
+        {
+            other.transform.parent.gameObject.SetActive(false);
+            holesInArow = 0;
         }
         
     }
