@@ -26,6 +26,8 @@ public class Ball : MonoBehaviour
 
     [HideInInspector]
     public Action<bool> OnEndingReached;
+    [HideInInspector]
+    public Action OnBigImpact;
     private int holesInArow = 0;
     // Start is called before the first frame update
     void Start()
@@ -95,6 +97,7 @@ public class Ball : MonoBehaviour
 
     private void BreakThrough(Collision col)
     {
+        OnBigImpact?.Invoke();
         col.transform.parent.gameObject.SetActive(false);
         holesInArow = 0;
         rendr.material = normalMaterial;
