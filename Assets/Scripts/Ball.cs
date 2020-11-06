@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public Action<bool> OnEndingReached;
+    public GameObject particles;
 
     public float bounceForce = 1;
     
     private Rigidbody rb;
-
+    
+    [HideInInspector]
+    public Action<bool> OnEndingReached;
     private int holesInArow = 0;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class Ball : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
                 holesInArow = 0;
+                PaintSplatter(collision.GetContact(0).point, collision.gameObject.transform);
             }
         }
         if (collision.gameObject.tag == "Death")
@@ -37,6 +40,13 @@ public class Ball : MonoBehaviour
             OnEndingReached?.Invoke(true);
         }
         
+    }
+
+    private void PaintSplatter(Vector3 pos, Transform parent)
+    {
+        GameObject splatter = Instantiate(particles, pos, Quaternion.identity, parent);
+        splatter.GetComponent<ParticleSystem>().Play();
+        Destroy(splatter, 4);
     }
 
     private void OnTriggerEnter(Collider other)
