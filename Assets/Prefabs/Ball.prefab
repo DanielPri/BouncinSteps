@@ -112,7 +112,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.005000001
+  m_Radius: 0.004
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &717981096714091637
 MonoBehaviour:
@@ -126,6 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d23a0123a37794cbed8b7abb9fd308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particles: {fileID: 2324279311191107909, guid: 1a8d19c1f0d55154fb884c76b41805e3, type: 3}
+  normalMaterial: {fileID: 2100000, guid: 749062442d2906743b1d133a38568b01, type: 2}
+  fastMaterial: {fileID: 2100000, guid: 1c6865f8200eb154ba1e1825d093d1ad, type: 2}
   bounceForce: 10
 --- !u!1 &9080591339096584827
 GameObject:
@@ -199,7 +202,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.4
+  m_Time: 0.3
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.81742096
@@ -208,29 +211,29 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: -1.3866132
-        outSlope: -1.3866132
+        value: 0.41558456
+        inSlope: -0.32859945
+        outSlope: -0.32859945
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.20123985
+        outWeight: 0.1486079
       - serializedVersion: 3
         time: 0.930829
         value: 0.07142322
-        inSlope: -1.5022843
-        outSlope: -1.5022843
+        inSlope: -0.2950984
+        outSlope: -0.2950984
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.13931261
+        inWeight: 0.26005656
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0, g: 0.61576366, b: 1, a: 0.8862745}
+      key1: {r: 0.28595585, g: 0.75260866, b: 0.9622642, a: 0.5568628}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -238,14 +241,14 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
+      ctime1: 65012
       ctime2: 0
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 174
       atime1: 65535
       atime2: 0
       atime3: 0
@@ -262,6 +265,6 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.05
   m_Autodestruct: 1
   m_Emitting: 1
