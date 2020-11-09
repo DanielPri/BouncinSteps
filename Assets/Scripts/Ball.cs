@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public GameObject particles;
+    public GameObject contactParticles;
 
     [Header("Materials")]
     public Material normalMaterial;
@@ -12,7 +14,7 @@ public class Ball : MonoBehaviour
     public float bounceForce = 1;
     
     private Rigidbody rb;
-    private Renderer rendr;
+    private Renderer _renderer;
     private TrailRenderer tr;
 
     //Trail sizes
@@ -23,6 +25,7 @@ public class Ball : MonoBehaviour
     private Gradient slowTrailGradient;
     private Gradient fastTrailGradient;
 
+    private Pool ParticlePool;
 
     [HideInInspector]
     public Action<bool> OnEndingReached;
@@ -32,7 +35,8 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rendr = GetComponent<Renderer>();
+        ParticlePool = new Pool(contactParticles, 6);
+        _renderer = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody>();
         tr = transform.GetChild(0).GetComponent<TrailRenderer>();
         smallCurve = tr.widthCurve;
@@ -100,7 +104,7 @@ public class Ball : MonoBehaviour
         OnBigImpact?.Invoke();
         col.transform.parent.gameObject.SetActive(false);
         holesInArow = 0;
-        rendr.material = normalMaterial;
+        _renderer.material = normalMaterial;
         tr.time = 0.3f;
         tr.widthCurve = smallCurve;
         tr.colorGradient = slowTrailGradient;
@@ -109,9 +113,14 @@ public class Ball : MonoBehaviour
 
     private GameObject PaintSplatter(Vector3 pos, Transform parent)
     {
-        GameObject splatter = Instantiate(particles, pos, Quaternion.identity, parent);
+        GameObject splatter = ParticlePool.getObjectFromPool();
+        splatter.GetComponent<ParticleEventCatcher>().isDone = false;
+        splatter.transform.position = pos;
+        splatter.transform.localScale = Vector3.one;
+        splatter.GetComponent<ParticleSystem>().Clear();
+        splatter.SetActive(true);
         splatter.GetComponent<ParticleSystem>().Play();
-        Destroy(splatter, 4);
+        StartCoroutine(WaitAndPool(splatter, 4));
         return splatter;
     }
 
@@ -133,11 +142,24 @@ public class Ball : MonoBehaviour
             holesInArow++;
             if(holesInArow == 3)
             {
-                rendr.material = fastMaterial;
+                _renderer.material = fastMaterial;
                 tr.time = 0.5f;
                 tr.widthCurve = bigCurve;
                 tr.colorGradient = fastTrailGradient;
             }
         }        
+    }
+
+    private IEnumerator WaitAndPool(GameObject ParticlesToRemove, float time)
+    {
+        if(ParticlesToRemove != null)
+        {
+            while (!ParticlesToRemove.GetComponent<ParticleEventCatcher>().isDone)
+            {
+                yield return null;
+            }
+            ParticlesToRemove.GetComponent<ParticleSystem>().Stop();
+            ParticlePool.addObjectToPool(ParticlesToRemove);
+        }
     }
 }

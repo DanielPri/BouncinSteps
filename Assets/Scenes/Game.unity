@@ -647,6 +647,10 @@ PrefabInstance:
       propertyPath: bounceForce
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 717981096714091637, guid: 88a783d8306265b499d8740b0059c2a3, type: 3}
+      propertyPath: contactParticles
+      value: 
+      objectReference: {fileID: 2324279311191107909, guid: 1a8d19c1f0d55154fb884c76b41805e3, type: 3}
     - target: {fileID: 1043833999179777891, guid: 88a783d8306265b499d8740b0059c2a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
