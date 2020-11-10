@@ -9,16 +9,19 @@ public class Menu : MonoBehaviour
 {
     public GameObject MainMenuUI;
     public GameObject SettingsUI;
+    public GameObject AreYouSureUI;
     public TextMeshProUGUI sensDisplay;
     public TextMeshProUGUI levelDisplay;
-
+    
     private PlayerData playerData;
     private float sensitivity = 0.3f;
     private Slider slider;
 
     private void Start()
     {
+        AreYouSureUI.GetComponent<AreYouSure>().finished += onPopupFinished;
         MainMenuUI.SetActive(true);
+        AreYouSureUI.SetActive(false);
         SettingsUI.SetActive(false);
 
         slider = SettingsUI.transform.GetComponentInChildren<Slider>();
@@ -46,9 +49,7 @@ public class Menu : MonoBehaviour
     // Warning!!!! cannot recover!
     public void ResetPlayer()
     {
-        SaveSystem.ResetPlayer();
-        playerData = new PlayerData(0, sensitivity);
-        levelDisplay.text = "0";
+        AreYouSureUI.SetActive(true);
     }
 
     public void SwitchToSettings()
@@ -69,5 +70,14 @@ public class Menu : MonoBehaviour
         // remaps the value to display 0-100
         float display = (value - slider.minValue) / (slider.maxValue - slider.minValue) * (100f - 0f) + 0f;
         sensDisplay.text = Mathf.Round(display).ToString();
+    }
+
+    private void onPopupFinished(bool isReset)
+    {
+        if (isReset)
+        {
+            playerData = new PlayerData(0, sensitivity);
+            levelDisplay.text = "0";
+        }
     }
 }
