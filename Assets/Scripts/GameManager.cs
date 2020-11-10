@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         if(data != null)
         {
             level = data.level;
+            rotationSpeed = data.rotationSensitivity;
         }
         HUDLevel.text = level.ToString();
 
@@ -88,7 +89,8 @@ public class GameManager : MonoBehaviour
             EndingText.text = "Victory!";
             EndingNextLevelText.text = "Next Level";
             level++;
-            SaveSystem.SavePlayer(level);
+            data.level = level;
+            SaveSystem.SavePlayer(data);
         }
         else
         {

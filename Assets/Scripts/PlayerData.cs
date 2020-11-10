@@ -6,10 +6,12 @@ using UnityEngine;
 public class PlayerData
 {
     public int level;
+    public float rotationSensitivity;
 
-    public PlayerData(int givenLevel)
+    public PlayerData(int givenLevel, float sens)
     {
         level = givenLevel;
+        rotationSensitivity = sens;
         // set up all data members
     }
 }

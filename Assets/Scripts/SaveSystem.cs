@@ -7,14 +7,13 @@ public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/player.sav";
 
-    public static void SavePlayer(int level)
+    public static void SavePlayer(PlayerData playerData)
     {
         Debug.Log("Saving to: " + path);
         BinaryFormatter formatter = new BinaryFormatter();
         using (FileStream stream = new FileStream(path, FileMode.Create))
         {
-            PlayerData data = new PlayerData(level);
-            formatter.Serialize(stream, data);
+            formatter.Serialize(stream, playerData);
             stream.Close();
         }
     }
