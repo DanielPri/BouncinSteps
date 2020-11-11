@@ -5,7 +5,6 @@ public class LevelGenerator : MonoBehaviour
 {
     [Header("GameObject Dependencies")]
     public GameObject Structure;
-    public GameObject Pillar;
     public List<GameObject> RingPrefabs;
     public GameObject FinalRing;
     public Transform Camera;
@@ -16,7 +15,6 @@ public class LevelGenerator : MonoBehaviour
     public int LevelLength = 50;
 
     private Queue<GameObject> ActiveRings;
-    private Queue<GameObject> ActivePillars;
 
     private int generatedRingsQty = 0;
     private bool isEndGenerated = false;
@@ -44,7 +42,6 @@ public class LevelGenerator : MonoBehaviour
         {
             //TODO consider using object pooling instead of destroying
             Destroy(ActiveRings.Dequeue());
-            Destroy(ActivePillars.Dequeue());
             if(generatedRingsQty < LevelLength)
             {
                 AddRingToStructure(RingPrefabs[Random.Range(0, RingPrefabs.Count)]);
@@ -64,7 +61,6 @@ public class LevelGenerator : MonoBehaviour
     public void SetupLevel(int level)
     {
         ActiveRings = new Queue<GameObject>();
-        ActivePillars = new Queue<GameObject>();
         LevelLength += level;
 
         // First ring is guaranteed safe, the hole wont be below player
@@ -79,21 +75,18 @@ public class LevelGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// Instantiate ring and pillar
+    /// Instantiate ring
     /// </summary>
     /// <param name="ringType"></param>
     private GameObject AddRingToStructure(GameObject ringType)
     {
         GameObject ring = Instantiate(ringType, Structure.transform, false);
-        GameObject pillar = Instantiate(Pillar, Structure.transform, false);
         ActiveRings.Enqueue(ring);
-        ActivePillars.Enqueue(pillar);
 
         // update variables needed for next rings
         generatedRingsQty++;
         prevRingPosition = ring.transform.position = new Vector3(0, prevRingPosition.y - ringOffset, 0);
         ring.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
-        pillar.transform.position = new Vector3(0, prevRingPosition.y, 0);
         return ring;
     }
 }
