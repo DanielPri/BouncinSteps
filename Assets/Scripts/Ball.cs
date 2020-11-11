@@ -30,11 +30,17 @@ public class Ball : MonoBehaviour
     //Particle colors
     private Color SmallParticlesColor;
 
+
     [HideInInspector]
     public Action<bool> OnEndingReached;
     [HideInInspector]
     public Action OnBigImpact;
-    private int holesInArow = 0;
+    [HideInInspector]
+    public int holesInArow = 0;
+    [HideInInspector]
+    public Action PassedRing;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +84,7 @@ public class Ball : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
                 holesInArow = 0;
+                PassedRing?.Invoke();
                 SmallPaintSplatter(collision.GetContact(0).point);
             }
             else
@@ -109,6 +116,7 @@ public class Ball : MonoBehaviour
         OnBigImpact?.Invoke();
         col.transform.parent.gameObject.SetActive(false);
         holesInArow = 0;
+        PassedRing?.Invoke();
         _renderer.material = normalMaterial;
         tr.time = 0.3f;
         tr.widthCurve = smallCurve;
@@ -154,7 +162,8 @@ public class Ball : MonoBehaviour
         {
             other.transform.parent.gameObject.SetActive(false);
             holesInArow++;
-            if(holesInArow == 3)
+            PassedRing?.Invoke();
+            if (holesInArow == 3)
             {
                 _renderer.material = fastMaterial;
                 tr.time = 0.5f;
