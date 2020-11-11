@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
     private bool canPause = true;
     private bool isPaused = false;
 
-    private float timeTapBegan;
-
     public void GoToMenu()
     {
         SceneManager.LoadScene("Menu");
@@ -120,7 +118,6 @@ public class GameManager : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 DragStart(touch);
-                timeTapBegan =  Time.time;
             }
             if (touch.phase == TouchPhase.Moved)
             {
@@ -129,18 +126,14 @@ public class GameManager : MonoBehaviour
             if (touch.phase == TouchPhase.Ended)
             {
                 DragRelease(touch);
-
-                // Check for a quick tap
-                if(Time.time - timeTapBegan < TapSpeed)
-                {
-                    SingleTap();
-                }
             }
         }
     }
 
-    void SingleTap()
+    public void Pause()
     {
+        print("canPause: " + canPause);
+        print("ispaused: " + isPaused);
         if (canPause && !isPaused)
         {
             Time.timeScale = 0;
@@ -154,6 +147,7 @@ public class GameManager : MonoBehaviour
             PauseMenu.SetActive(false);
         }
     }
+
     void DragStart(Touch touch)
     {
         touchStart = touch.position.x;

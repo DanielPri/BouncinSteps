@@ -27,6 +27,9 @@ public class Ball : MonoBehaviour
 
     private Pool ParticlePool;
 
+    //Particle colors
+    private Color SmallParticlesColor;
+
     [HideInInspector]
     public Action<bool> OnEndingReached;
     [HideInInspector]
@@ -36,6 +39,8 @@ public class Ball : MonoBehaviour
     void Start()
     {
         ParticlePool = new Pool(contactParticles, 6);
+        var main = contactParticles.GetComponent<ParticleSystem>().main;
+        SmallParticlesColor = main.startColor.color;
         _renderer = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody>();
         tr = transform.GetChild(0).GetComponent<TrailRenderer>();
@@ -73,7 +78,7 @@ public class Ball : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
                 holesInArow = 0;
-                PaintSplatter(collision.GetContact(0).point, collision.gameObject.transform);
+                SmallPaintSplatter(collision.GetContact(0).point);
             }
             else
             {
@@ -108,28 +113,37 @@ public class Ball : MonoBehaviour
         tr.time = 0.3f;
         tr.widthCurve = smallCurve;
         tr.colorGradient = slowTrailGradient;
-        BigPaintSplatter(col.GetContact(0).point, col.gameObject.transform);
+        BigPaintSplatter(col.GetContact(0).point);
     }
 
-    private GameObject PaintSplatter(Vector3 pos, Transform parent)
+    private GameObject SmallPaintSplatter(Vector3 pos)
     {
-        GameObject splatter = ParticlePool.getObjectFromPool();
-        splatter.GetComponent<ParticleEventCatcher>().isDone = false;
-        splatter.transform.position = pos;
-        splatter.transform.localScale = Vector3.one;
-        splatter.GetComponent<ParticleSystem>().Clear();
-        splatter.SetActive(true);
-        splatter.GetComponent<ParticleSystem>().Play();
-        StartCoroutine(WaitAndPool(splatter, 4));
-        return splatter;
+        // Setup a particle from the pool
+        ParticleSystem splatter = SetupParticles(ParticlePool.getObjectFromPool(), pos).GetComponent<ParticleSystem>();
+
+        // set its color
+        var main = splatter.main;
+        main.startColor = SmallParticlesColor;
+
+        //set its burst quantity range
+        splatter.emission.SetBurst(0, new ParticleSystem.Burst(0f, 15, 20));
+
+        // set its shape
+        var shape = splatter.shape;
+        shape.shapeType = ParticleSystemShapeType.Cone;
+    
+        return splatter.gameObject;
     }
 
-    private void BigPaintSplatter(Vector3 point, Transform transform)
+    private void BigPaintSplatter(Vector3 pos)
     {
-        ParticleSystem splatter = PaintSplatter(point, null).GetComponent<ParticleSystem>();
+        ParticleSystem splatter = SetupParticles(ParticlePool.getObjectFromPool(), pos).GetComponent<ParticleSystem>();
+
         var main = splatter.main;
         main.startColor = Color.red;
+
         splatter.emission.SetBurst(0, new ParticleSystem.Burst(0f, 40, 60));
+
         var shape = splatter.shape;
         shape.shapeType = ParticleSystemShapeType.Sphere;
     }
@@ -150,7 +164,21 @@ public class Ball : MonoBehaviour
         }        
     }
 
-    private IEnumerator WaitAndPool(GameObject ParticlesToRemove, float time)
+    private GameObject SetupParticles(GameObject particleGameObject, Vector3 pos)
+    {
+        particleGameObject.GetComponent<ParticleEventCatcher>().isDone = false;
+        particleGameObject.transform.position = pos;
+        particleGameObject.transform.localScale = Vector3.one;
+        particleGameObject.GetComponent<ParticleSystem>().Clear();
+
+        particleGameObject.SetActive(true);
+
+        particleGameObject.GetComponent<ParticleSystem>().Play();
+        StartCoroutine(WaitAndPool(particleGameObject));
+        return particleGameObject;
+    }
+
+    private IEnumerator WaitAndPool(GameObject ParticlesToRemove)
     {
         if(ParticlesToRemove != null)
         {
