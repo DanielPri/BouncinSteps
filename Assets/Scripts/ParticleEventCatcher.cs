@@ -6,7 +6,6 @@ public class ParticleEventCatcher : MonoBehaviour
 
     private void OnParticleSystemStopped()
     {
-        print("particles done");
         isDone = true;
     }
 }

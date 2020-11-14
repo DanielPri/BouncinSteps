@@ -65,7 +65,7 @@ public class LevelGenerator : MonoBehaviour
 
         // First ring is guaranteed safe, the hole wont be below player
         GameObject firstRing = AddRingToStructure(RingPrefabs[0]);
-        firstRing.transform.rotation = Quaternion.Euler(0, Random.Range(-115f,120f), 0);
+        firstRing.transform.rotation = Quaternion.Euler(0, Random.Range(-160f,70f), 0);
 
         // then generate the next initial rings with random rotations
         for (int i=0; i < initalQtyOfRings-1; i++)
