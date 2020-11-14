@@ -114,7 +114,7 @@ public class Ball : MonoBehaviour
     private void BreakThrough(Collision col)
     {
         OnBigImpact?.Invoke();
-        col.transform.parent.gameObject.SetActive(false);
+        col.transform.parent.gameObject.GetComponent<Ring>().Break(transform.position);
         holesInArow = 0;
         PassedRing?.Invoke();
         _renderer.material = normalMaterial;
@@ -160,7 +160,7 @@ public class Ball : MonoBehaviour
     {
         if(other.tag == "Hole")
         {
-            other.transform.parent.gameObject.SetActive(false);
+            other.transform.parent.gameObject.GetComponent<Ring>().Break(transform.position);
             holesInArow++;
             PassedRing?.Invoke();
             if (holesInArow == 3)
