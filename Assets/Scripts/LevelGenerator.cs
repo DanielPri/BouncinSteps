@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class LevelGenerator : MonoBehaviour
     public int LevelLength = 50;
 
     private Queue<GameObject> ActiveRings;
+    private Queue<GameObject> BreakRings;
 
     private int generatedRingsQty = 0;
     private bool isEndGenerated = false;
@@ -61,6 +64,7 @@ public class LevelGenerator : MonoBehaviour
     public void SetupLevel(int level)
     {
         ActiveRings = new Queue<GameObject>();
+        BreakRings = new Queue<GameObject>();
         LevelLength += level;
 
         // First ring is guaranteed safe, the hole wont be below player
@@ -74,6 +78,16 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    public void BreakTopRing(Vector3 pos)
+    {
+        Ring ring = BreakRings.Dequeue().GetComponent<Ring>();
+        if (!ring.isBroken)
+        {
+            ring.Break(pos);
+        }
+
+    }
+
     /// <summary>
     /// Instantiate ring
     /// </summary>
@@ -82,6 +96,7 @@ public class LevelGenerator : MonoBehaviour
     {
         GameObject ring = Instantiate(ringType, Structure.transform, false);
         ActiveRings.Enqueue(ring);
+        BreakRings.Enqueue(ring);
 
         // update variables needed for next rings
         generatedRingsQty++;

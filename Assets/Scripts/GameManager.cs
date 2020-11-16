@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         // initializing class members
         levelGenerator = GetComponent<LevelGenerator>();
         prevRotation = 0f;
+        StartCoroutine(setUpBall());
 
         // set up UI elements
         PauseMenu.SetActive(false);
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         
         // set up Action Event Handling
         ball.OnEndingReached += HandleEnding;
+        ball.PassedRing += HandleHole;
 
         // load data from player save
         data = SaveSystem.LoadPlayer();
@@ -65,6 +67,15 @@ public class GameManager : MonoBehaviour
 
         //If not first level
         Time.timeScale = 1;
+    }
+
+    private void HandleHole(bool isPassed)
+    {
+        if (isPassed)
+        {
+            levelGenerator.BreakTopRing(ball.gameObject.transform.position);
+        }
+        
     }
 
     // Update is called once per frame
@@ -164,6 +175,15 @@ public class GameManager : MonoBehaviour
     {
         //remember the rotation of the structure for next drag
         prevRotation = Structure.transform.rotation.eulerAngles.y;
+    }
+
+    IEnumerator setUpBall()
+    {
+        while(levelGenerator == null)
+        {
+            yield return null;
+        }
+        ball.SetRingOffset(levelGenerator.ringOffset);
     }
 
 }

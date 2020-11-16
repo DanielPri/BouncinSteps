@@ -7,7 +7,7 @@ public class SpeedParticles : MonoBehaviour
 
     ParticleSystem ps;
     Ball ballScript;
-
+    int Intensity = -1;
 
     private Color defColor;
 
@@ -20,13 +20,22 @@ public class SpeedParticles : MonoBehaviour
         defColor = ps.main.startColor.color;
     }
 
-    private void changeEmitAmount()
+    private void changeEmitAmount(bool isPassed)
     {
+        if (isPassed)
+        {
+            Intensity++;
+        }
+        else
+        {
+            Intensity = -1;
+        }
+
         var em = ps.emission;
-        em.rateOverTimeMultiplier = (ballScript.holesInArow - 1) * 50;
+        em.rateOverTimeMultiplier = Intensity * 50;
 
         var main = ps.main;
-        if (ballScript.holesInArow >= 3)
+        if (Intensity >= 2)
         {
             main.startColor = Color.red;
         }

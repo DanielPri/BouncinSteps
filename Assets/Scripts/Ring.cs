@@ -10,6 +10,8 @@ public class Ring : MonoBehaviour
     public float explosionForce = 1.5f;
     public float upwardsExplosionModifier = 0f;
 
+    public bool isBroken = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,12 +40,19 @@ public class Ring : MonoBehaviour
             MeshRenderer[] activeChildren = GetComponentsInChildren<MeshRenderer>();
             foreach(MeshRenderer child in activeChildren)
             {
+                Rigidbody rb;
                 child.gameObject.layer = LayerMask.NameToLayer("Destructable");
-                Rigidbody rb = child.gameObject.AddComponent<Rigidbody>();
+                rb = child.gameObject.GetComponent<Rigidbody>();
+                if (rb == null)
+                {
+                     rb = child.gameObject.AddComponent<Rigidbody>();
+                }
                 StartCoroutine(PlaceExplosion(rb, explosionCenter));
             }
 
         }
+
+        isBroken = true;
     }
 
     IEnumerator PlaceExplosion(Rigidbody rb, Vector3 center)

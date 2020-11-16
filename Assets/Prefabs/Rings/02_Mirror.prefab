@@ -95,114 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.04, y: 0.04, z: 0.004}
   m_Center: {x: -0.02, y: -0.02, z: 0}
---- !u!1 &1554033595493280042
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1554033595493280043}
-  - component: {fileID: 1554033595493280045}
-  - component: {fileID: 1554033595493280044}
-  m_Layer: 9
-  m_Name: hole_2
-  m_TagString: Hole
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1554033595493280043
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554033595493280042}
-  m_LocalRotation: {x: -0.6531675, y: 0.27055082, z: 0.2706453, w: 0.65339553}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
-  m_Children: []
-  m_Father: {fileID: 1554033596348813412}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 45}
---- !u!33 &1554033595493280045
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554033595493280042}
-  m_Mesh: {fileID: 6928151774854157279, guid: 793a1396e2f38cd4c88a0d66355bf7e1, type: 3}
---- !u!64 &1554033595493280044
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554033595493280042}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6928151774854157279, guid: 793a1396e2f38cd4c88a0d66355bf7e1, type: 3}
---- !u!1 &1554033595784401876
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1554033595784401877}
-  - component: {fileID: 1554033595784401879}
-  - component: {fileID: 1554033595784401878}
-  m_Layer: 9
-  m_Name: hole
-  m_TagString: Hole
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1554033595784401877
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554033595784401876}
-  m_LocalRotation: {x: -0.27055082, y: -0.6531675, z: -0.65339553, w: 0.2706453}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
-  m_Children: []
-  m_Father: {fileID: 1554033596348813412}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: -135}
---- !u!33 &1554033595784401879
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554033595784401876}
-  m_Mesh: {fileID: 6928151774854157279, guid: 793a1396e2f38cd4c88a0d66355bf7e1, type: 3}
---- !u!64 &1554033595784401878
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554033595784401876}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6928151774854157279, guid: 793a1396e2f38cd4c88a0d66355bf7e1, type: 3}
 --- !u!1 &1554033596222062285
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,8 +223,6 @@ Transform:
   - {fileID: 1554033594734225680}
   - {fileID: 2387166675394014402}
   - {fileID: 1554033596222062286}
-  - {fileID: 1554033595784401877}
-  - {fileID: 1554033595493280043}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -352,6 +242,7 @@ MonoBehaviour:
   DestructObject: {fileID: 0}
   explosionForce: 5
   upwardsExplosionModifier: 0.2
+  isBroken: 0
 --- !u!1 &3056602592746600056
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,9 +13,13 @@ public class Ball : MonoBehaviour
 
     public float bounceForce = 1;
     
+    private float ringOffset;
+    private float NextRingHeight;    
+
     private Rigidbody rb;
     private Renderer _renderer;
     private TrailRenderer tr;
+
 
     //Trail sizes
     private AnimationCurve smallCurve;
@@ -38,7 +42,7 @@ public class Ball : MonoBehaviour
     [HideInInspector]
     public int holesInArow = 0;
     [HideInInspector]
-    public Action PassedRing;
+    public Action<bool> PassedRing;
 
 
     // Start is called before the first frame update
@@ -54,6 +58,15 @@ public class Ball : MonoBehaviour
         bigCurve = InitializeBigCurve();
         slowTrailGradient = tr.colorGradient;
         fastTrailGradient = InitializeTrailGradient();
+    }
+
+    private void FixedUpdate()
+    {
+        if(transform.position.y < NextRingHeight)
+        {
+            NextRingHeight -= ringOffset;
+            PassRing();
+        }
     }
 
     private Gradient InitializeTrailGradient()
@@ -84,7 +97,7 @@ public class Ball : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
                 holesInArow = 0;
-                PassedRing?.Invoke();
+                PassedRing?.Invoke(false);
                 SmallPaintSplatter(collision.GetContact(0).point);
             }
             else
@@ -116,7 +129,7 @@ public class Ball : MonoBehaviour
         OnBigImpact?.Invoke();
         col.transform.parent.gameObject.GetComponent<Ring>().Break(transform.position);
         holesInArow = 0;
-        PassedRing?.Invoke();
+        PassedRing?.Invoke(false);
         _renderer.material = normalMaterial;
         tr.time = 0.3f;
         tr.widthCurve = smallCurve;
@@ -156,21 +169,17 @@ public class Ball : MonoBehaviour
         shape.shapeType = ParticleSystemShapeType.Sphere;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void PassRing()
     {
-        if(other.tag == "Hole")
+        holesInArow++;
+        PassedRing?.Invoke(true);
+        if (holesInArow == 3)
         {
-            other.transform.parent.gameObject.GetComponent<Ring>().Break(transform.position);
-            holesInArow++;
-            PassedRing?.Invoke();
-            if (holesInArow == 3)
-            {
-                _renderer.material = fastMaterial;
-                tr.time = 0.5f;
-                tr.widthCurve = bigCurve;
-                tr.colorGradient = fastTrailGradient;
-            }
-        }        
+            _renderer.material = fastMaterial;
+            tr.time = 0.5f;
+            tr.widthCurve = bigCurve;
+            tr.colorGradient = fastTrailGradient;
+        }  
     }
 
     private GameObject SetupParticles(GameObject particleGameObject, Vector3 pos)
@@ -198,5 +207,11 @@ public class Ball : MonoBehaviour
             ParticlesToRemove.GetComponent<ParticleSystem>().Stop();
             ParticlePool.addObjectToPool(ParticlesToRemove);
         }
+    }
+
+    public void SetRingOffset(float value)
+    {
+        ringOffset = value;
+        NextRingHeight = -ringOffset;
     }
 }
