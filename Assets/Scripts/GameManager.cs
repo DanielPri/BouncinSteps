@@ -69,13 +69,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    private void HandleHole(bool isPassed)
+    private void HandleHole(bool doBreak)
     {
-        if (isPassed)
+        if (doBreak)
         {
             levelGenerator.BreakTopRing(ball.gameObject.transform.position);
         }
-        
     }
 
     // Update is called once per frame
