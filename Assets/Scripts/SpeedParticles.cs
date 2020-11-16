@@ -16,11 +16,10 @@ public class SpeedParticles : MonoBehaviour
     {
         ps = GetComponent<ParticleSystem>();
         ballScript = transform.parent.gameObject.GetComponent<Ball>();
-        ballScript.PassedRing += changeEmitAmount;
         defColor = ps.main.startColor.color;
     }
 
-    private void changeEmitAmount(bool isPassed)
+    public void changeEmitAmount(bool isPassed)
     {
         if (isPassed)
         {

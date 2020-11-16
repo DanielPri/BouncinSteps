@@ -19,6 +19,7 @@ public class Ball : MonoBehaviour
 
     //Particles
     private BallParticles ballParticles;
+    private SpeedParticles speedParticles;
 
     //Trail
     private BallTrail ballTrail;
@@ -28,7 +29,7 @@ public class Ball : MonoBehaviour
     [HideInInspector]
     public Action OnBigImpact;
     [HideInInspector]
-    public Action<bool> PassedRing;
+    public Action PassedRing;
     [HideInInspector]
     public int holesInArow = 0;
 
@@ -40,6 +41,7 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         ballParticles = GetComponent<BallParticles>();
         ballTrail = GetComponentInChildren<BallTrail>();
+        speedParticles = GetComponentInChildren<SpeedParticles>();
     }
 
     private void FixedUpdate()
@@ -60,7 +62,7 @@ public class Ball : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
                 holesInArow = 0;
-                PassedRing?.Invoke(false);
+                speedParticles.changeEmitAmount(false);
                 ballParticles.SmallPaintSplatter(collision.GetContact(0).point);
             }
             else
@@ -92,7 +94,7 @@ public class Ball : MonoBehaviour
         OnBigImpact?.Invoke();
         col.transform.parent.gameObject.GetComponent<Ring>().Break(transform.position);
         holesInArow = 0;
-        PassedRing?.Invoke(false);
+        speedParticles.changeEmitAmount(false);
         _renderer.material = normalMaterial;
         ballParticles.BigPaintSplatter(col.GetContact(0).point);
 
@@ -102,7 +104,8 @@ public class Ball : MonoBehaviour
     private void PassRing()
     {
         holesInArow++;
-        PassedRing?.Invoke(true);
+        PassedRing?.Invoke();
+        speedParticles.changeEmitAmount(true);
         if (holesInArow == 3)
         {
             _renderer.material = fastMaterial;
