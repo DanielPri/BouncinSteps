@@ -145,6 +145,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contactParticles: {fileID: 2324279311191107909, guid: 1a8d19c1f0d55154fb884c76b41805e3, type: 3}
+  smallParticlesMin: 5
+  smallParticlesMax: 20
+  largeParticlesMin: 40
+  largeParticlesMax: 60
 --- !u!198 &717981097083318399
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4947,6 +4951,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1841482044859541784}
   - component: {fileID: 1987974790583488510}
+  - component: {fileID: 3605598762470428893}
   m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
@@ -5075,6 +5080,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.05
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &3605598762470428893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080591339096584827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66ab0779327f9440955c273c0397aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2575869882597091023
 PrefabInstance:
   m_ObjectHideFlags: 0

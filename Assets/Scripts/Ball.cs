@@ -16,18 +16,12 @@ public class Ball : MonoBehaviour
 
     private Rigidbody rb;
     private Renderer _renderer;
-    private TrailRenderer tr;
 
     //Particles
-    BallParticles ballParticles;
+    private BallParticles ballParticles;
 
-    //Trail sizes
-    private AnimationCurve smallCurve;
-    private AnimationCurve bigCurve;
-
-    //Trail colors
-    private Gradient slowTrailGradient;
-    private Gradient fastTrailGradient;
+    //Trail
+    private BallTrail ballTrail;
     
     [HideInInspector]
     public Action<bool> OnEndingReached;
@@ -44,12 +38,8 @@ public class Ball : MonoBehaviour
     {
         _renderer = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody>();
-        tr = transform.GetChild(0).GetComponent<TrailRenderer>();
         ballParticles = GetComponent<BallParticles>();
-        smallCurve = tr.widthCurve;
-        bigCurve = InitializeBigCurve();
-        slowTrailGradient = tr.colorGradient;
-        fastTrailGradient = InitializeTrailGradient();
+        ballTrail = GetComponentInChildren<BallTrail>();
     }
 
     private void FixedUpdate()
@@ -61,27 +51,7 @@ public class Ball : MonoBehaviour
             PassRing();
         }
     }
-
-    private Gradient InitializeTrailGradient()
-    {
-        Gradient gradient = new Gradient();
-
-        gradient.SetKeys(
-            new GradientColorKey[] {new GradientColorKey(Color.red,0f), new GradientColorKey(Color.red, 1.0f)},
-            new GradientAlphaKey[] {new GradientAlphaKey(0.9f, 0f), new GradientAlphaKey(0.5f, 1f) }
-        );
-
-        return gradient;
-    }
-
-    private AnimationCurve InitializeBigCurve()
-    {
-        AnimationCurve curve = new AnimationCurve();
-        curve.AddKey(0f, 0.8f);
-        curve.AddKey(0.93f, 0.08f);
-        return curve;
-    }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Floor")
@@ -124,10 +94,9 @@ public class Ball : MonoBehaviour
         holesInArow = 0;
         PassedRing?.Invoke(false);
         _renderer.material = normalMaterial;
-        tr.time = 0.3f;
-        tr.widthCurve = smallCurve;
-        tr.colorGradient = slowTrailGradient;
         ballParticles.BigPaintSplatter(col.GetContact(0).point);
+
+        ballTrail.setSmall();
     }
     
     private void PassRing()
@@ -137,9 +106,7 @@ public class Ball : MonoBehaviour
         if (holesInArow == 3)
         {
             _renderer.material = fastMaterial;
-            tr.time = 0.5f;
-            tr.widthCurve = bigCurve;
-            tr.colorGradient = fastTrailGradient;
+            ballTrail.setBig();
         }  
     }
     
