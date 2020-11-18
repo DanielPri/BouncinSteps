@@ -12,17 +12,6 @@ public class Ring : MonoBehaviour
 
     public bool isBroken = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // replace the platform with a destroyed version
     public void Break(Vector3 explosionCenter)
     {

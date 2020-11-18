@@ -25,10 +25,6 @@ public class LevelGenerator : MonoBehaviour
 
     private Vector3 prevRingPosition = Vector3.zero;
 
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
