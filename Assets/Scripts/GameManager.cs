@@ -139,8 +139,6 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        print("canPause: " + canPause);
-        print("ispaused: " + isPaused);
         if (canPause && !isPaused)
         {
             Time.timeScale = 0;
