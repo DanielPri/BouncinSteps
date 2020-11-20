@@ -15,7 +15,7 @@ public class MovingRingPart : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        currentY = transform.rotation.eulerAngles.y;
+        currentY = transform.localRotation.eulerAngles.y;
         RotateSegment();
         if (canToggle)
         {
@@ -35,7 +35,7 @@ public class MovingRingPart : MonoBehaviour
 
     void RotateSegment()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, currentY + speed * Time.deltaTime, 0);
+        transform.localRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, currentY + speed * Time.deltaTime, 0);
     }
 
     bool isNear(float A, float B, float sensitivity)
