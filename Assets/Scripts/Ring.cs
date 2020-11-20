@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ring : MonoBehaviour
 {
-    public GameObject StaticObject;
+    public List<GameObject> StaticObjects;
     public GameObject DestructObject;
     
     public float explosionForce = 1.5f;
@@ -15,9 +15,13 @@ public class Ring : MonoBehaviour
     // replace the platform with a destroyed version
     public void Break(Vector3 explosionCenter)
     {
-        if(StaticObject != null)
+        if(StaticObjects.Count > 0)
         {
-            StaticObject.SetActive(false);
+            foreach(GameObject staticObject in StaticObjects)
+            {
+                print("Deactivating!");
+                staticObject.SetActive(false);
+            }
             DestructObject.SetActive(true);
             foreach (Rigidbody rb in DestructObject.GetComponentsInChildren<Rigidbody>())
             {
