@@ -148,6 +148,7 @@ MonoBehaviour:
   DestructObject: {fileID: 1770976422326511148}
   explosionForce: 5
   upwardsExplosionModifier: 0.2
+  spawnChance: 0
   isBroken: 0
 --- !u!1 &1770976422326511148
 GameObject:

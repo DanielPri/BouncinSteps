@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     {
         // initializing class members
         levelGenerator = GetComponent<LevelGenerator>();
+        levelGenerator.setupSpawnChance(new SpawnChance());
         prevRotation = 0f;
         StartCoroutine(setUpBall());
 
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour
             rotationSpeed = data.rotationSensitivity;
         }
         HUDLevel.text = level.ToString();
-
+        
         // generate the first few rings
         levelGenerator.SetupLevel(level);
 

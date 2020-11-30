@@ -10,6 +10,8 @@ public class Ring : MonoBehaviour
     public float explosionForce = 1.5f;
     public float upwardsExplosionModifier = 0f;
 
+    public float spawnChance = 1f;
+
     public bool isBroken = false;
 
     // replace the platform with a destroyed version

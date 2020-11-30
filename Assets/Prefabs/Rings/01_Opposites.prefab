@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1e2bb8a546bd146a49b40c1b49372f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StaticObject: {fileID: 0}
+  StaticObjects: []
   DestructObject: {fileID: 0}
   explosionForce: 5
   upwardsExplosionModifier: 0.2
+  spawnChance: 7
   isBroken: 0
 --- !u!1001 &2806342564789124504
 PrefabInstance:

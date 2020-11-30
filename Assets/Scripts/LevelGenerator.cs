@@ -19,6 +19,8 @@ public class LevelGenerator : MonoBehaviour
     private Queue<GameObject> ActiveRings;
     private Queue<GameObject> BreakRings;
 
+    private SpawnChance spawnChance;
+
     private int generatedRingsQty = 0;
     private bool isEndGenerated = false;
     // Start is called before the first frame update
@@ -43,7 +45,7 @@ public class LevelGenerator : MonoBehaviour
             Destroy(ActiveRings.Dequeue());
             if(generatedRingsQty < LevelLength)
             {
-                AddRingToStructure(RingPrefabs[Random.Range(0, RingPrefabs.Count)]);
+                AddRingToStructure(RingPrefabs[spawnChance.getRandomWeightedIndex()]);
             }
             else if(!isEndGenerated)
             {
@@ -70,7 +72,7 @@ public class LevelGenerator : MonoBehaviour
         // then generate the next initial rings with random rotations
         for (int i=0; i < initalQtyOfRings-1; i++)
         {
-            AddRingToStructure(RingPrefabs[Random.Range(0, RingPrefabs.Count)]);
+            AddRingToStructure(RingPrefabs[spawnChance.getRandomWeightedIndex()]);
         }
     }
 
@@ -99,6 +101,12 @@ public class LevelGenerator : MonoBehaviour
         prevRingPosition = ring.transform.position = new Vector3(0, prevRingPosition.y - ringOffset, 0);
         ring.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
         return ring;
+    }
+
+    public void setupSpawnChance(SpawnChance sc)
+    {
+        spawnChance = sc;
+        spawnChance.init(RingPrefabs);
     }
 }
 
